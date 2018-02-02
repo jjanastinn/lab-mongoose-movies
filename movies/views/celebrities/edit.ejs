@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h2>Edit celebrity</h2>
+    <form action = "/celebrities/<%= celebrity._id %>" method = "POST" >
+      <div>
+        <label for = "name"> Name </label>
+        <input type = "text" name = "name" id = "name">
+      </div>
+      <div>
+        <label for = "occupation"> Occupation </label>
+        <input type = "text" name = "occupation" id = "occupation">
+      </div>
+      <div>
+        <label for = "catchPhrase"> Catch Phrase </label>
+        <input type = "text" name = "catchPhrase" id = "catchPhrase">
+      </div>
+      <button> Submit </button>
+    </form>
+    <a href = "/celebrities">
+      Back to Celebrity Inventory
+    </a>
+  </body>
+</html>
