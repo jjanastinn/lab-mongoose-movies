@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <form action = "/celebrities" method = "POST" >
-      <div>
-        <label for = "name"> Name </label>
-        <input type = "text" name = "name" id = "name">
-      </div>
-      <div>
-        <label for = "occupation"> Occupation </label>
-        <input type = "text" name = "occupation" id = "occupation">
-      </div>
-      <div>
-        <label for = "catchPhrase"> Catch Phrase </label>
-        <input type = "text" name = "catchPhrase" id = "catchPhrase">
-      </div>
-      <button> Submit </button>
-    </form>
+<h2><%= title %></h2>
+<form action="/celebrities" method="POST" >
+  <div class="field">
+    <label for="name"> Name </label>
+    <input type="text" name="name" id="name">
+  </div>
+  <div class="field">
+    <label for="occupation"> Occupation </label>
+    <input type="text" name="occupation" id="occupation">
+  </div>
+  <div class="field">
+    <label for="catchPhrase"> Catch Phrase </label>
+    <input type="text" name="catchPhrase" id="catchPhrase">
+  </div>
+  <div class="field control">
+    <button class="btn submit">Save</button>
+  </div>
+</form>
 
-
-
-    <a href = "/celebrities">
-      Back to Celebrity Inventory
-    </a>
-  </body>
-</html>
+<a href="/celebrities">Back to Celebrity Inventory</a>

@@ -1,24 +1,28 @@
-// bin/seeds.js
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/movies');
+mongoose.connect('mongodb://localhost/mongoose-movies-development');
 
 const Celebrity = require('../models/celebrity');
 
 const celebrities = [
   {
-    name: 'Madonna',
-    occupation: 'singer',
-    catchPhrase: 'Hello, I am Madonna'
+    name: 'Tom Cruise',
+    occupation: 'Scientology Ambassador',
+    catchPhrase: 'Show me the money!'
   },
   {
-    name: 'Justin Bieber',
-    occupation: 'singer',
-    catchPhrase: 'Hello, I am Justin Bieber'
+    name: 'Samuel L. Jackson',
+    occupation: 'Hitman',
+    catchPhrase: 'English! Do you speak it?'
   },
   {
-    name: 'Eminem',
-    occupation: 'singer',
-    catchPhrase: 'Hello, I am Eminem'
+    name: 'Kim Kardashian',
+    occupation: 'Unknown',
+    catchPhrase: 'Chique scowl'
+  },
+  {
+    name: 'Beyonce',
+    occupation: 'Musical Scientist',
+    catchPhrase: "If you liked it, then you should've put a ring on it."
   }
 ];
 

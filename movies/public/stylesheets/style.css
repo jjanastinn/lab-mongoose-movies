@@ -1,8 +1,157 @@
+
+/* ---- reset ---- */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html,
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+
+/* ---- typography ---- */
+
+body {
+  font-size: 14px;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+
+h1 {}
+
+h2 {}
+
+h3 {}
+
+/* ---- forms ---- */
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.field input {
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid black;
+}
+
+.error {
+  color: red;
+}
+
+/* ---- layout ---- */
+
+.container {
+  margin: 0 20px;
+}
+
+#site-header {}
+
+#site-footer {}
+
+#site-main {}
+
+
+
+
+/* ---- components ---- */
+
+/* button */
+
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 16px;
+  text-decoration: none;
+  color: black;
+  border: none;
+}
+
+.btn.submit {
+  background: rgb(30, 247, 30);
+}
+
+.btn.delete {
+  background-color: red;
+}
+
+/* actions */
+
+.actions {
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: right;
+  background: #ccc;
+}
+
+/* list */
+
+.list {
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #ccc;
+}
+
+.list li {
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.list .actions {
+  margin: 0;
+  padding: 5px;
+}
+
+.list .actions .btn {
+  padding: 2px 10px;
+  font-size: 14px;
+}
+
+
+/* details */
+
+.detail .label {
+  font-weight: bold;
+}
+
+.detail .highlighted {
+  display: block;
+  margin: 10px 0 20px;
+  padding: 5px 10px;
+  font-size: 20px;
+  background: yellow;
+}
+
+
+/* -- pages -- */
+
+.celebrity-list li {
+  display: flex;
+  align-items: center;
+}
+
+.celebrity-list .item {
+  flex: 1 0 80%;
+}
+
+.celebrity-list .actions {
+  flex: 1 0 20%;
 }

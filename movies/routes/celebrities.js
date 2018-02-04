@@ -3,66 +3,41 @@ const router = express.Router();
 
 const Celebrity = require('../models/celebrity');
 
-router.get('/', function (req, res, next) {
-  Celebrity.find({}, (err, celebritiesArray) => {
+/* render the list page */
+router.get('/', (req, res, next) => {
+  Celebrity.find({}, (err, celebrities) => {
     if (err) {
       return next(err);
     }
-    const data = {
+    res.render('celebrities/index', {
       title: 'Celebrity Inventory',
-      celebrities: celebritiesArray
-    };
-
-    res.render('celebrities/index', data);
+      celebrities
+    });
   });
 });
 
-router.get('/new', function (req, res, next) {
+/* render the create form */
+router.get('/new', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
   res.render('celebrities/new', {
-    title: 'Build your celebrity'
+    title: "Build Your Celebrity's Profile"
   });
 });
 
-router.post('/', function (req, res, next) {
+/* handle the POST from the create form */
+router.post('/', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
   const theCelebrity = new Celebrity({
     name: req.body.name,
     occupation: req.body.occupation,
     catchPhrase: req.body.catchPhrase
   });
+
   theCelebrity.save((err) => {
-    if (err) {
-      res.render('celebrities/new', {
-        title: 'Build your celebrity profile'
-      });
-    } else {
-      res.redirect('/celebrities');
-    }
-  });
-});
-
-router.get('/:id', (req, res, next) => {
-  const celebrityId = req.params.id;
-
-  Celebrity.findById(celebrityId, (err, celebrity) => {
-    if (err) {
-      return next(err);
-    }
-    const data = {
-      celebrity: celebrity
-    };
-    res.render('celebrities/show', data);
-  });
-});
-
-router.post('/:id', (req, res, next) => {
-  const delCeleb = {
-    name: req.body.name,
-    occupation: req.body.occupation,
-    catchPhrase: req.body.catchPhrase
-  };
-  const celebrityId = req.params.id;
-
-  Celebrity.findByIdAndUpdate(celebrityId, delCeleb, (err, result) => {
     if (err) {
       return next(err);
     }
@@ -70,24 +45,88 @@ router.post('/:id', (req, res, next) => {
   });
 });
 
-router.get('/:id/edit', (req, res, next) => {
-  const celebrityId = req.params.id;
-
-  Celebrity.findById(celebrityId, (err, celebrity) => {
+/* render the detail page */
+router.get('/:id', (req, res, next) => {
+  const id = req.params.id;
+  Celebrity.findById(id, (err, celebrity) => {
     if (err) {
       return next(err);
     }
+    if (!celebrity) {
+      res.status(404);
+      const data = {
+        title: '404 Not Found'
+      };
+      return res.render('not-found', data);
+    }
     const data = {
-      celebrity: celebrity
+      title: celebrity.name,
+      celebrity
+    };
+    res.render('celebrities/detail', data);
+  });
+});
+
+/* render the edit form */
+router.get('/:id/edit', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
+  const id = req.params.id;
+  Celebrity.findById(id, (err, celebrity) => {
+    if (err) {
+      return next(err);
+    }
+    if (!celebrity) {
+      res.status(404);
+      const data = {
+        title: '404 Not Found'
+      };
+      return res.render('not-found', data);
+    }
+    const data = {
+      title: 'Edit ' + celebrity.name,
+      celebrity
     };
     res.render('celebrities/edit', data);
   });
 });
 
-router.post('/:id/delete', function (req, res, next) {
-  const celebrityId = req.params.id;
+/* handle the POST from the edit form */
+router.post('/:id', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
+  const id = req.params.id;
+  const updates = {
+    $set: {
+      name: req.body.name,
+      occupation: req.body.occupation,
+      catchPhrase: req.body.catchPhrase
+    }
+  };
+  Celebrity.update({_id: id}, updates, (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    if (!result.n) {
+      res.status(404);
+      const data = {
+        title: '404 Not Found'
+      };
+      return res.render('not-found', data);
+    }
+    res.redirect('/celebrities');
+  });
+});
 
-  Celebrity.findByIdAndRemove(celebrityId, (err, celebrity) => {
+/* handle the POST to delete one */
+router.post('/:id/delete', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
+  const id = req.params.id;
+  Celebrity.remove({_id: id}, (err) => {
     if (err) {
       return next(err);
     }

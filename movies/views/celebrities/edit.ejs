@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h2>Edit celebrity</h2>
-    <form action = "/celebrities/<%= celebrity._id %>" method = "POST" >
-      <div>
-        <label for = "name"> Name </label>
-        <input type = "text" name = "name" id = "name">
-      </div>
-      <div>
-        <label for = "occupation"> Occupation </label>
-        <input type = "text" name = "occupation" id = "occupation">
-      </div>
-      <div>
-        <label for = "catchPhrase"> Catch Phrase </label>
-        <input type = "text" name = "catchPhrase" id = "catchPhrase">
-      </div>
-      <button> Submit </button>
-    </form>
-    <a href = "/celebrities">
-      Back to Celebrity Inventory
-    </a>
-  </body>
-</html>
+<h2>Editing <%= celebrity.name %></h2>
+
+<form action="/celebrities/<%= celebrity._id %>" method="POST" >
+  <div class="field">
+    <label for="name"> Name </label>
+    <input type="text" name="name" id="name" value="<%= celebrity.name %>" />
+  </div>
+  <div class="field">
+    <label for="occupation"> Occupation </label>
+    <input type="text" name="occupation" id="occupation" value="<%= celebrity.occupation %>" />
+  </div>
+  <div class="field">
+    <label for="catchPhrase"> Catch Phrase </label>
+    <input type="text" name="catchPhrase" id="catchPhrase" value="<%= celebrity.catchPhrase %>" />
+  </div>
+  <div class="field control">
+    <button class="btn submit">Update</button>
+  </div>
+</form>
+
+<a href="/celebrities">Back to Celebrity Inventory</a>
